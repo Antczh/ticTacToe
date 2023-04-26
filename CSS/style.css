@@ -1,6 +1,10 @@
+body{
+    background-color: #2f3542;
+}
+
 .grid-container {
     display: grid;
-    grid-template-columns: 150px 150px 150px;
+    grid-template-columns: repeat(3,auto);
     grid-auto-rows: 150px;
     width: 450px;
     margin: auto;
@@ -9,9 +13,24 @@
   
   .grid-item {
   
-    border: 1px solid black;
+    border: 3px solid yellow;
   }
   
   h1{
     text-align: center;
   }
+
+.nought{
+    width: 105px;
+    height: 105px;
+    border: solid red 1px;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 0.5rem;
+}
+
+.cross{
+    
+}
+
+

@@ -5,3 +5,7 @@ gridItems.forEach((item) => {
     console.log("Cell clicked");
   });
 });
+
+function showX() {}
+
+function showO() {}
