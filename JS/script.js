@@ -15,6 +15,7 @@ function showX(event) {
   const cell = event.target;
   const imgX = document.createElement("img");
   imgX.src = "fontawesome-free-6.3.0-web/svgs/solid/x-solid.svg";
+  imgX.classList.add("x-image");
   cell.appendChild(imgX);
 }
 

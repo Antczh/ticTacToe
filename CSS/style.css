@@ -14,6 +14,8 @@ body{
   .gridBox {
   
     border: 3px solid yellow;
+    height: 150px;
+    width: 150px;
   }
   
   h1{
@@ -45,4 +47,8 @@ body{
     width: 105px; 
 }
 
-
+.x-image {
+    height: 150px;
+    width: 120px;
+  }
+  
