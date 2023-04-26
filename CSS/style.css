@@ -20,6 +20,21 @@ body{
     text-align: center;
   }
 
+  #playAgain{
+    display: block;
+    background-color: green;
+    margin: auto;
+    margin-top: 10px;
+    height: 50px;
+    width: 150px;
+  }
+
+  #playAgainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 .nought{
     width: 105px;
     height: 105px;
