@@ -1,0 +1,17 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 150px 150px 150px;
+    grid-auto-rows: 150px;
+    width: 450px;
+    margin: auto;
+}
+
+  
+  .grid-item {
+  
+    border: 1px solid black;
+  }
+  
+  h1{
+    text-align: center;
+  }
