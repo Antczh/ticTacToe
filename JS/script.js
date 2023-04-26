@@ -1,11 +1,3 @@
-const gridItems = document.querySelectorAll(".grid-item");
-
-gridItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    console.log("Cell clicked");
-  });
-});
-
 const winnerCombos = [
   [box1, box2, box3],
   [box4, box5, box6],
@@ -17,6 +9,20 @@ const winnerCombos = [
   [box3, box5, box7],
 ];
 
-function showX() {}
+const gridItems = document.querySelectorAll(".gridBox");
+
+function showX(event) {
+  const cell = event.target;
+  const imgX = document.createElement("img");
+  imgX.src = "fontawesome-free-6.3.0-web/svgs/solid/x-solid.svg";
+  cell.appendChild(imgX);
+}
+
+gridItems.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    showX(event);
+    console.log("Cell clicked");
+  });
+});
 
 function showO() {}

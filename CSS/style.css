@@ -11,7 +11,7 @@ body{
 }
 
   
-  .grid-item {
+  .gridBox {
   
     border: 3px solid yellow;
   }
@@ -36,16 +36,13 @@ body{
   }
 
 .nought{
-    width: 105px;
-    height: 105px;
-    border: solid red 1px;
-    border-radius: 50%;
-    margin: auto;
-    margin-top: 0.5rem;
+   height: 105px;
+   width: 105px;
 }
 
 .cross{
-    
+    height: 105px;
+    width: 105px; 
 }
 
 
