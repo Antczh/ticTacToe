@@ -19,11 +19,26 @@ function showX(event) {
   cell.appendChild(imgX);
 }
 
+// function to generate a random integer between 0 and max (exclusive)
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+// function to show an O in a cell
+function showO(cell) {
+  const imgO = document.createElement("img");
+  imgO.src = "fontawesome-free-6.3.0-web/svgs/solid/o-solid.svg";
+  imgO.classList.add("o-image");
+  cell.appendChild(imgO);
+}
+
+// add click listener to grid cells
 gridItems.forEach((item) => {
   item.addEventListener("click", (event) => {
     showX(event);
     console.log("Cell clicked");
+    // computer's move - generate random cell index
+    const randomIndex = getRandomInt(gridItems.length);
+    showO(gridItems[randomIndex]);
   });
 });
-
-function showO() {}
