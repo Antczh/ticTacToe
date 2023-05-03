@@ -11,28 +11,27 @@ const winnerCombos = [
 
 const gridItems = document.querySelectorAll(".gridBox");
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 function showX(event) {
   const cell = event.target;
   const imgX = document.createElement("img");
   imgX.src = "fontawesome-free-6.3.0-web/svgs/solid/x-solid.svg";
   imgX.classList.add("x-image");
+  imgX.classList.add("appendedImg");
   cell.appendChild(imgX);
 }
 
-// function to generate a random integer between 0 and max (exclusive)
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-// function to show an O in a cell
 function showO(cell) {
   const imgO = document.createElement("img");
   imgO.src = "fontawesome-free-6.3.0-web/svgs/solid/o-solid.svg";
   imgO.classList.add("o-image");
+  imgO.classList.add("appendedImg");
   cell.appendChild(imgO);
 }
 
-// add click listener to grid cells
 gridItems.forEach((item) => {
   item.addEventListener("click", (event) => {
     showX(event);
@@ -42,3 +41,13 @@ gridItems.forEach((item) => {
     showO(gridItems[randomIndex]);
   });
 });
+
+function playNewGame() {
+  const grid = document.querySelector(".grid-container");
+  const appendedImages = document.querySelectorAll(".appendedImg");
+  appendedImages.forEach((img) => img.remove());
+}
+
+const playAgainBtn = document
+  .getElementById("playAgain")
+  .addEventListener("click", playNewGame);
