@@ -20,8 +20,8 @@ const gridItems = document.querySelectorAll(".gridBox");
 function getRandomEmptyCell(max) {
   let row, col;
   while (!row) {
-    let randomRow = Math.floor(Math.random() * 3);
-    let randomCol = Math.floor(Math.random() * 3);
+    let randomRow = Math.floor(Math.random() * 2);
+    let randomCol = Math.floor(Math.random() * 2);
 
     if (board[randomRow][randomCol] == null) {
       row = randomRow;
@@ -60,17 +60,13 @@ gridItems.forEach((item) => {
     showX(event);
     console.log("Cell clicked");
 
-    const randomIndex = getRandomEmptyCell();
+    const randomIndex = getRandomEmptyCell(gridItems.length);
     // won't need gridItems.length
 
     console.log(randomIndex);
-
     setTimeout(function () {
-      let [row, col] = getRandomEmptyCell();
-      let cell = document.querySelector(
-        `[data-row="${row}"][data-col="${col}"]`
-      );
-      showO(cell);
+      let cell = document.querySelector("[data-row=0][data-col=0]");
+      showO(gridItems[randomIndex]);
     }, 1000);
   });
 });
