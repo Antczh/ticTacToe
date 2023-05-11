@@ -17,19 +17,37 @@ const board = [
 
 const gridItems = document.querySelectorAll(".gridBox");
 
-function getRandomEmptyCell(max) {
-  let row, col;
-  while (!row) {
-    let randomRow = Math.floor(Math.random() * 3);
-    let randomCol = Math.floor(Math.random() * 3);
+// function getRandomEmptyCell(max) {
+//   let row, col;
+//   while (!row) {
+//     let randomRow = Math.floor(Math.random() * 3);
+//     let randomCol = Math.floor(Math.random() * 3);
 
-    if (board[randomRow][randomCol] == null) {
-      row = randomRow;
-      col = randomCol;
+//     if (board[randomRow][randomCol] == null) {
+//       row = randomRow;
+//       col = randomCol;
+//     }
+//   }
+
+//   return [row, col];
+// }
+
+function getRandomEmptyCell(max) {
+  let emptyCells = [];
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (board[row][col] === null) {
+        emptyCells.push([row, col]);
+      }
     }
   }
 
-  return [row, col];
+  if (emptyCells.length === 0) {
+    return "draw";
+  }
+
+  const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  return emptyCells[randomIndex];
 }
 
 function showX(event) {
@@ -55,22 +73,51 @@ function showO(cell) {
   console.log(board);
 }
 
+// gridItems.forEach((item) => {
+//   item.addEventListener("click", (event) => {
+//     showX(event);
+//     console.log("Cell clicked");
+
+//     const randomIndex = getRandomEmptyCell();
+//     // won't need gridItems.length
+
+//     console.log(randomIndex);
+
+//     setTimeout(function () {
+//       let [row, col] = getRandomEmptyCell();
+//       let cell = document.querySelector(
+//         `[data-row="${row}"][data-col="${col}"]`
+//       );
+//       showO(cell);
+//     }, 1000);
+//   });
+// });
+
 gridItems.forEach((item) => {
   item.addEventListener("click", (event) => {
     showX(event);
     console.log("Cell clicked");
 
     const randomIndex = getRandomEmptyCell();
-    // won't need gridItems.length
+
+    if (randomIndex === "draw") {
+      alert("Draw");
+      return;
+    }
 
     console.log(randomIndex);
 
     setTimeout(function () {
-      let [row, col] = getRandomEmptyCell();
+      let [row, col] = randomIndex;
       let cell = document.querySelector(
         `[data-row="${row}"][data-col="${col}"]`
       );
       showO(cell);
+
+      const result = checkResult();
+      if (result !== null) {
+        alert(result);
+      }
     }, 1000);
   });
 });
