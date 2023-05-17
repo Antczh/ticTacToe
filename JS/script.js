@@ -17,7 +17,7 @@ const board = [
 
 const gridItems = document.querySelectorAll(".gridBox");
 
-function getRandomEmptyCell(max) {
+function getRandomEmptyCell() {
   let row, col;
   let nullFound = false;
 
@@ -38,7 +38,8 @@ function getRandomEmptyCell(max) {
   }
 
   if (!row) {
-    return null; // Return null if no empty cell is found
+    return null;
+    // Return null if no empty cell is found
   }
 
   return [row, col];
@@ -48,12 +49,14 @@ function checkIfAllCellsFilled() {
   for (let row = 0; row < 3; row++) {
     for (let col = 0; col < 3; col++) {
       if (board[row][col] === null) {
-        return false; // Found at least one empty cell, return false
+        return false;
+        // Found at least one empty cell, return false
       }
     }
   }
 
-  return true; // All cells are filled, return true
+  return true;
+  // All cells are filled, return true
 }
 
 function showX(event) {
