@@ -101,34 +101,7 @@ gridItems.forEach((item) => {
   });
 });
 
-// gridItems.forEach((item) => {
-//   item.addEventListener("click", (event) => {
-//     showX(event);
-//     console.log("Cell clicked");
-
-//     const randomIndex = getRandomEmptyCell();
-
-//     if (randomIndex === "draw") {
-//       alert("Draw");
-//       return;
-//     }
-
-//     console.log(randomIndex);
-
-//     setTimeout(function () {
-//       let [row, col] = randomIndex;
-//       let cell = document.querySelector(
-//         `[data-row="${row}"][data-col="${col}"]`
-//       );
-//       showO(cell);
-
-//       const result = checkResult();
-//       if (result !== null) {
-//         alert(result);
-//       }
-//     }, 1000);
-//   });
-// });
+function winner() {}
 
 function playNewGame() {
   const grid = document.querySelector(".grid-container");
@@ -139,5 +112,3 @@ function playNewGame() {
 const playAgainBtn = document
   .getElementById("playAgain")
   .addEventListener("click", playNewGame);
-
-//

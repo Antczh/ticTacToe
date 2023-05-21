@@ -2,6 +2,10 @@ body{
     background-color: #2f3542;
 }
 
+h1{
+  color: white;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3,auto);
@@ -13,13 +17,17 @@ body{
   
   .gridBox {
   
-    border: 3px solid yellow;
+    border: 3px solid white;
     height: 150px;
     width: 150px;
   }
   
   h1{
     text-align: center;
+  }
+
+  h2{
+    color: white;
   }
 
   #playAgain{
