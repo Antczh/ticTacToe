@@ -45,22 +45,13 @@ h1{
     align-items: center;
   }
 
-.nought{
-   height: 105px;
-   width: 105px;
-}
-
-.cross{
-    height: 105px;
-    width: 105px; 
-}
 
 .x-image {
     height: 150px;
-    width: 120px;
+    width: 150px;
   }
   
 .o-image{
     height: 150px;
-    width: 120px; 
+    width: 150px; 
 }  

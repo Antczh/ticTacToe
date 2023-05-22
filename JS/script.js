@@ -9,6 +9,51 @@
 //   [box3, box5, box7],
 // ];
 
+const winnerCombos = [
+  [
+    [true, true, true],
+    [null, null, null],
+    [null, null, null],
+  ],
+  [
+    [null, null, null],
+    [true, true, true],
+    [null, null, null],
+  ],
+  [
+    [null, null, null],
+    [null, null, null],
+    [true, true, true],
+  ],
+
+  [
+    [true, null, null],
+    [true, null, null],
+    [true, null, null],
+  ],
+  [
+    [null, true, null],
+    [null, true, null],
+    [null, true, null],
+  ],
+  [
+    [null, null, true],
+    [null, null, true],
+    [null, null, true],
+  ],
+
+  [
+    [true, null, null],
+    [null, true, null],
+    [null, null, true],
+  ],
+  [
+    [null, null, true],
+    [null, true, null],
+    [true, null, null],
+  ],
+];
+
 const board = [
   [null, null, null],
   [null, null, null],
@@ -69,6 +114,8 @@ function showX(event) {
 
   board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "X";
   console.log(board);
+
+  checkWinner();
 }
 
 function showO(cell) {
@@ -80,6 +127,8 @@ function showO(cell) {
 
   board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "O";
   console.log(board);
+
+  checkWinner();
 }
 
 gridItems.forEach((item) => {
@@ -101,7 +150,46 @@ gridItems.forEach((item) => {
   });
 });
 
-function winner() {}
+function checkWinner() {
+  let winnerDecided = false;
+  winnerCombos.every(function (winnerCombo) {
+    //  winnerCombo will look like this
+    // [true, true, true],
+    // [null, null, null],
+    // [null, null, null],
+
+    // take the winnCombo and compare to the board
+
+    const winningBoxes = [];
+    console.log(winnerCombo);
+    winnerCombo.forEach(function (row, row_index) {
+      row.forEach(function (winningBox, col_index) {
+        if (winningBox) {
+          let cell = document.querySelector(
+            `[data-row="${row_index}"][data-col="${col_index}"]`
+          );
+          winningBoxes.push(cell.innerHTML);
+        }
+      });
+    });
+    if (
+      winningBoxes[0] != "" &&
+      winningBoxes[0] == winningBoxes[1] &&
+      winningBoxes[1] == winningBoxes[2]
+    ) {
+      winnerDecided = true;
+      return false;
+      // stop for every loop
+    } else {
+      return true;
+      // carry on every loop
+    }
+    console.log(winnerCombo, winningBoxes);
+  });
+  if (winnerDecided) {
+    console.log("There is a winner");
+  }
+}
 
 function playNewGame() {
   const grid = document.querySelector(".grid-container");
