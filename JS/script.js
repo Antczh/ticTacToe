@@ -122,6 +122,9 @@ function showO(cell) {
 
 gridItems.forEach((item) => {
   item.addEventListener("click", (event) => {
+    if (winnerDecided) {
+      return;
+    }
     showX(event);
     console.log("Cell clicked");
 
@@ -134,13 +137,17 @@ gridItems.forEach((item) => {
       let cell = document.querySelector(
         `[data-row="${row}"][data-col="${col}"]`
       );
+      if (winnerDecided) {
+        return;
+      }
+
       showO(cell);
     }, 1000);
   });
 });
 
+let winnerDecided = false;
 function checkWinner() {
-  let winnerDecided = false;
   winnerCombos.every(function (winnerCombo) {
     //  winnerCombo will look like this
     // [true, true, true],
@@ -185,8 +192,7 @@ function playNewGame() {
   const grid = document.querySelector(".grid-container");
   const appendedImages = document.querySelectorAll(".appendedImg");
   appendedImages.forEach((img) => img.remove());
-
-  checkWinner();
+  location.reload();
 }
 
 const playAgainBtn = document
