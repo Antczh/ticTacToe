@@ -55,3 +55,8 @@ h1{
     height: 150px;
     width: 150px; 
 }  
+
+#alertContainer{
+  display: flex;
+  justify-content: center;
+}

@@ -147,17 +147,12 @@ gridItems.forEach((item) => {
 });
 
 let winnerDecided = false;
+
 function checkWinner() {
   winnerCombos.every(function (winnerCombo) {
-    //  winnerCombo will look like this
-    // [true, true, true],
-    // [null, null, null],
-    // [null, null, null],
-
-    // take the winnCombo and compare to the board
-
     const winningBoxes = [];
-    console.log(winnerCombo);
+    let hasWinner = true; // Variable to track if there is a winner
+
     winnerCombo.forEach(function (row, row_index) {
       row.forEach(function (winningBox, col_index) {
         if (winningBox) {
@@ -168,25 +163,77 @@ function checkWinner() {
         }
       });
     });
+
     if (
-      winningBoxes[0] != "" &&
-      winningBoxes[0] == winningBoxes[1] &&
-      winningBoxes[1] == winningBoxes[2]
+      winningBoxes[0] !== "" &&
+      winningBoxes[0] === winningBoxes[1] &&
+      winningBoxes[1] === winningBoxes[2]
     ) {
       winnerDecided = true;
-      return false;
-      // stop for every loop
-    } else {
-      return true;
-      // carry on every loop
+      const winnerSymbol = winningBoxes[0]; // Get the winning symbol (X or O)
+      showAlert(winnerSymbol); // Show the alert with the winning symbol
+      hasWinner = false; // Set hasWinner to false to continue the loop
     }
-    console.log(winnerCombo, winningBoxes);
+
+    return hasWinner; // Continue the loop if there is no winner
   });
+
   if (winnerDecided) {
     console.log("There is a winner");
+    // You can show an additional alert here if needed
     return;
   }
 }
+
+function showAlert() {
+  const winAlert = document.getElementById("winAlertBox");
+}
+
+// ----------------------------------------------------------------------------------------------------------
+
+// function checkWinner() {
+//   winnerCombos.every(function (winnerCombo) {
+//     //  winnerCombo will look like this
+//     // [true, true, true],
+//     // [null, null, null],
+//     // [null, null, null],
+
+//     // take the winnCombo and compare to the board
+
+//     const winningBoxes = [];
+//     console.log(winnerCombo);
+//     winnerCombo.forEach(function (row, row_index) {
+//       row.forEach(function (winningBox, col_index) {
+//         if (winningBox) {
+//           let cell = document.querySelector(
+//             `[data-row="${row_index}"][data-col="${col_index}"]`
+//           );
+//           winningBoxes.push(cell.innerHTML);
+//         }
+//       });
+//     });
+//     if (
+//       winningBoxes[0] != "" &&
+//       winningBoxes[0] == winningBoxes[1] &&
+//       winningBoxes[1] == winningBoxes[2]
+//     ) {
+//       winnerDecided = true;
+//       return false;
+//       // stop for every loop
+//     } else {
+//       return true;
+//       // carry on every loop
+//     }
+//     console.log(winnerCombo, winningBoxes);
+//   });
+//   if (winnerDecided) {
+//     console.log("There is a winner");
+
+//     return;
+//   }
+// }
+
+// --------------------------------------------------------------------------------------------------------
 
 function playNewGame() {
   const grid = document.querySelector(".grid-container");

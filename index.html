@@ -30,18 +30,26 @@
       <div class="gridBox" data-row="2" data-col="1"></div>
       <div class="gridBox" data-row="2" data-col="2"></div>
     </div>
-    <!-- <div id="playAgainContainer">
-      <button id="playAgain"><h2>Play again</h2></button>
-    </div> -->
 
     <div id="playAgainContainer">
       <button type="button" class="btn btn-success" id="playAgain">
         <h4>Play again</h4>
       </button>
     </div>
-    <!-- <div class="alert alert-success" role="alert">
-      A simple success alert—check it out!
-    </div> -->
+
+    <div id="alertContainer">
+      <div class="alert alert-success" role="alert" id="winAlertBox">
+        <h3>
+          <strong> You Win!</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </h3>
+      </div>
+    </div>
 
     <script type="application/javascript" src="./JS/script.js"></script>
     <script src="./Bootstrap5/js/bootstrap.js"></script>
