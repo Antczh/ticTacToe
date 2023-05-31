@@ -1,3 +1,6 @@
+const xWinAlert = document.getElementById("xAlertBox");
+const oWinAlert = document.getElementById("oAlertBox");
+
 const winnerCombos = [
   [
     [true, true, true],
@@ -161,6 +164,12 @@ function checkWinner() {
             `[data-row="${row_index}"][data-col="${col_index}"]`
           );
           winningBoxes.push(cell.innerHTML);
+          // winningBoxes.push(
+          //   cell.innerHTML ===
+          //     '<img src="fontawesome-free-6.3.0-web/svgs/solid/x-solid.svg" class="x-image appendedImg">'
+          //     ? "O"
+          //     : "X"
+          // );
         }
       });
     });
@@ -173,19 +182,19 @@ function checkWinner() {
       winnerDecided = true;
       winningSymbol = winningBoxes[0];
       console.log(winningSymbol + " wins");
-      return false; // stop for every loop
+
+      if (winnerDecided) {
+        if (winningSymbol === "X") {
+          xWinAlert.style.display = "block";
+        } else if (winningSymbol === "O") {
+          oWinAlert.style.display = "block";
+        }
+      }
+      return false;
     } else {
-      return true; // carry on every loop
+      return true;
     }
   });
-
-  // if (winnerDecided) {
-  //   if (winningSymbol === "X") {
-  //     console.log("X wins");
-  //   } else if (winningSymbol === "O") {
-  //     console.log("O wins");
-  //   }
-  // }
 }
 
 //----------------------------------------------------------------------------------------------------------
