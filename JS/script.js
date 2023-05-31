@@ -146,12 +146,13 @@ gridItems.forEach((item) => {
   });
 });
 
+// ----------------------------------------------------------------------------------------------------
 let winnerDecided = false;
+let winningSymbol = "";
 
 function checkWinner() {
   winnerCombos.every(function (winnerCombo) {
-    const winningBoxes = [];
-    let hasWinner = true; // Variable to track if there is a winner
+    let winningBoxes = [];
 
     winnerCombo.forEach(function (row, row_index) {
       row.forEach(function (winningBox, col_index) {
@@ -170,26 +171,26 @@ function checkWinner() {
       winningBoxes[1] === winningBoxes[2]
     ) {
       winnerDecided = true;
-      const winnerSymbol = winningBoxes[0]; // Get the winning symbol (X or O)
-      showAlert(winnerSymbol); // Show the alert with the winning symbol
-      hasWinner = false; // Set hasWinner to false to continue the loop
+      winningSymbol = winningBoxes[0];
+      console.log(winningSymbol + " wins");
+      return false; // stop for every loop
+    } else {
+      return true; // carry on every loop
     }
-
-    return hasWinner; // Continue the loop if there is no winner
   });
 
-  if (winnerDecided) {
-    console.log("There is a winner");
-    // You can show an additional alert here if needed
-    return;
-  }
+  // if (winnerDecided) {
+  //   if (winningSymbol === "X") {
+  //     console.log("X wins");
+  //   } else if (winningSymbol === "O") {
+  //     console.log("O wins");
+  //   }
+  // }
 }
 
-function showAlert() {
-  const winAlert = document.getElementById("winAlertBox");
-}
+//----------------------------------------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------------------------------------
+// ----------------------------original------------------------------------------------------------------------------
 
 // function checkWinner() {
 //   winnerCombos.every(function (winnerCombo) {
@@ -201,7 +202,7 @@ function showAlert() {
 //     // take the winnCombo and compare to the board
 
 //     const winningBoxes = [];
-//     console.log(winnerCombo);
+//     // console.log(winnerCombo);
 //     winnerCombo.forEach(function (row, row_index) {
 //       row.forEach(function (winningBox, col_index) {
 //         if (winningBox) {
