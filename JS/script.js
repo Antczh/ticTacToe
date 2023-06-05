@@ -68,7 +68,6 @@ function getRandomEmptyCell() {
       nullFound = true;
     }
 
-    // Break out of the loop if no more null values are available
     if (!nullFound && checkIfAllCellsFilled()) {
       break;
     }
@@ -76,7 +75,6 @@ function getRandomEmptyCell() {
 
   if (!row) {
     return null;
-    // Return null if no empty cell is found
   }
 
   return [row, col];
@@ -87,13 +85,11 @@ function checkIfAllCellsFilled() {
     for (let col = 0; col < 3; col++) {
       if (board[row][col] === null) {
         return false;
-        // Found at least one empty cell, return false
       }
     }
   }
 
   return true;
-  // All cells are filled, return true
 }
 
 function showX(event) {
@@ -164,12 +160,6 @@ function checkWinner() {
             `[data-row="${row_index}"][data-col="${col_index}"]`
           );
           winningBoxes.push(cell.innerHTML);
-          // winningBoxes.push(
-          //   cell.innerHTML ===
-          //     '<img src="fontawesome-free-6.3.0-web/svgs/solid/x-solid.svg" class="x-image appendedImg">'
-          //     ? "O"
-          //     : "X"
-          // );
         }
       });
     });
@@ -180,7 +170,7 @@ function checkWinner() {
       winningBoxes[1] === winningBoxes[2]
     ) {
       winnerDecided = true;
-      winningSymbol = winningBoxes[0];
+      winningSymbol = winningBoxes[0] === "x-solid.svg" ? "O" : "X";
       console.log(winningSymbol + " wins");
 
       if (winnerDecided) {
@@ -196,54 +186,6 @@ function checkWinner() {
     }
   });
 }
-
-//----------------------------------------------------------------------------------------------------------
-
-// ----------------------------original------------------------------------------------------------------------------
-
-// function checkWinner() {
-//   winnerCombos.every(function (winnerCombo) {
-//     //  winnerCombo will look like this
-//     // [true, true, true],
-//     // [null, null, null],
-//     // [null, null, null],
-
-//     // take the winnCombo and compare to the board
-
-//     const winningBoxes = [];
-//     // console.log(winnerCombo);
-//     winnerCombo.forEach(function (row, row_index) {
-//       row.forEach(function (winningBox, col_index) {
-//         if (winningBox) {
-//           let cell = document.querySelector(
-//             `[data-row="${row_index}"][data-col="${col_index}"]`
-//           );
-//           winningBoxes.push(cell.innerHTML);
-//         }
-//       });
-//     });
-//     if (
-//       winningBoxes[0] != "" &&
-//       winningBoxes[0] == winningBoxes[1] &&
-//       winningBoxes[1] == winningBoxes[2]
-//     ) {
-//       winnerDecided = true;
-//       return false;
-//       // stop for every loop
-//     } else {
-//       return true;
-//       // carry on every loop
-//     }
-//     console.log(winnerCombo, winningBoxes);
-//   });
-//   if (winnerDecided) {
-//     console.log("There is a winner");
-
-//     return;
-//   }
-// }
-
-// --------------------------------------------------------------------------------------------------------
 
 function playNewGame() {
   const grid = document.querySelector(".grid-container");
