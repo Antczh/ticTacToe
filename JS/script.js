@@ -170,7 +170,7 @@ function checkWinner() {
       winningBoxes[1] === winningBoxes[2]
     ) {
       winnerDecided = true;
-      winningSymbol = winningBoxes[0] === "x-solid.svg" ? "O" : "X";
+      winningSymbol = winningBoxes[0].search("x-solid.svg") > 0 ? "X" : "O";
       console.log(winningSymbol + " wins");
 
       if (winnerDecided) {
