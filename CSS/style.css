@@ -1,67 +1,69 @@
-body{
+body {
     background-color: #2f3542 !important;
 }
 
-h1{
-  color: white !important;
+h1 {
+    color: white !important;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3,auto);
+    grid-template-columns: repeat(3, auto);
     grid-auto-rows: 150px;
     width: 450px;
     margin: auto;
 }
 
-  
-  .gridBox {
-  
+.gridBox {
     border: 3px solid white !important;
     height: 150px;
     width: 150px;
-  }
-  
-  h1{
+}
+
+h1 {
     text-align: center;
-  }
+}
 
-  h2{
+h2 {
     color: white !important;
-  }
+}
 
-  #playAgain{
+#playAgain {
     display: block;
     background-color: green;
     margin: auto;
     margin-top: 10px;
     height: 50px;
     width: 150px;
-  }
+}
 
-  #playAgainContainer{
+#playAgainContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
+}
 
 .x-image {
     height: 150px;
     width: 150px;
-  }
-  
-.o-image{
-    height: 150px;
-    width: 150px; 
-}  
+}
 
-#alertContainer{
-  display: flex;
-  justify-content: center;
+.o-image {
+    height: 150px;
+    width: 150px;
+}
+
+#alertContainer {
+    display: flex;
+    justify-content: center;
 }
 
 #xAlertBox,
 #oAlertBox {
-  display: none;
+    display: none;
+    position: absolute;
+    top: 26%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
