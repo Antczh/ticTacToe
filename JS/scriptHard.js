@@ -101,9 +101,9 @@ function showX(event) {
     cell.appendChild(imgX);
 
     board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "X";
-    // console.log(board);
+    console.log(board);
 
-    ONextTurn();
+    checkWinner();
 }
 
 function showO(cell) {
@@ -114,9 +114,9 @@ function showO(cell) {
     cell.appendChild(imgO);
 
     board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "O";
-    // console.log(board);
+    console.log(board);
 
-    ONextTurn();
+    checkWinner();
 }
 
 gridItems.forEach((item) => {
@@ -125,7 +125,7 @@ gridItems.forEach((item) => {
             return;
         }
         showX(event);
-        // console.log("Cell clicked");
+        console.log("Cell clicked");
 
         const randomIndex = getRandomEmptyCell();
 
@@ -149,7 +149,7 @@ gridItems.forEach((item) => {
 let winnerDecided = false;
 let winningSymbol = "";
 
-function ONextTurn() {
+function checkWinner() {
     winnerCombos.every(function (winnerCombo) {
         let winningBoxes = [];
 
@@ -160,25 +160,11 @@ function ONextTurn() {
                         `[data-row="${row_index}"][data-col="${col_index}"]`
                     );
                     winningBoxes.push(cell.innerHTML);
-                    console.log("winningBoxes", winningBoxes);
                 }
             });
         });
+
         if (
-            (winningBoxes[0] &&
-                winningBoxes[1] === "O" &&
-                winningBoxes[2] === null) ||
-            (winningBoxes[1] === "O" &&
-                winningBoxes[2] === "0" &&
-                winningBoxes[0] === null) ||
-            (winningBoxes[0] &&
-                winningBoxes[2] === "O" &&
-                winningBoxes[1] === null)
-        ) {
-            // do the search
-            winningBoxes[0].search("o-solid.svg") > 0;
-            return [row, col];
-        } else if (
             winningBoxes[0] !== "" &&
             winningBoxes[0] === winningBoxes[1] &&
             winningBoxes[1] === winningBoxes[2]
@@ -186,7 +172,7 @@ function ONextTurn() {
             winnerDecided = true;
             winningSymbol =
                 winningBoxes[0].search("x-solid.svg") > 0 ? "X" : "O";
-            // console.log(winningSymbol + " wins");
+            console.log(winningSymbol + " wins");
 
             if (winnerDecided) {
                 if (winningSymbol === "X") {
