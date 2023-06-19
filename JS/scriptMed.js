@@ -150,6 +150,9 @@ let winnerDecided = false;
 let winningSymbol = "";
 
 function ONextTurn() {
+    let foundEmpty = false;
+    let row, col;
+
     winnerCombos.every(function (winnerCombo) {
         let winningBoxes = [];
 
@@ -164,20 +167,69 @@ function ONextTurn() {
                 }
             });
         });
+
         if (
+            (winningBoxes[0] &&
+                winningBoxes[1] === "X" &&
+                winningBoxes[2] === null) ||
+            (winningBoxes[1] === "X" &&
+                winningBoxes[2] === "X" &&
+                winningBoxes[0] === null) ||
+            (winningBoxes[0] &&
+                winningBoxes[2] === "X" &&
+                winningBoxes[1] === null)
+        ) {
+            // Stop "X" from winning by appending "O" to the null value
+            winnerCombo.forEach(function (row, row_index) {
+                row.forEach(function (winningBox, col_index) {
+                    if (winningBox === null) {
+                        row = row_index;
+                        col = col_index;
+                        foundEmpty = true;
+                    }
+                });
+            });
+
+            if (foundEmpty) {
+                // Call showO() with the position
+                let cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                showO(cell);
+
+                return false; // Exit the every() loop
+            }
+        } else if (
             (winningBoxes[0] &&
                 winningBoxes[1] === "O" &&
                 winningBoxes[2] === null) ||
             (winningBoxes[1] === "O" &&
-                winningBoxes[2] === "0" &&
+                winningBoxes[2] === "O" &&
                 winningBoxes[0] === null) ||
             (winningBoxes[0] &&
                 winningBoxes[2] === "O" &&
                 winningBoxes[1] === null)
         ) {
-            // do the search
-            winningBoxes[0].search("o-solid.svg") > 0;
-            return [row, col];
+            // Append "O" to the null value for potential winning move
+            winnerCombo.forEach(function (row, row_index) {
+                row.forEach(function (winningBox, col_index) {
+                    if (winningBox === null) {
+                        row = row_index;
+                        col = col_index;
+                        foundEmpty = true;
+                    }
+                });
+            });
+
+            if (foundEmpty) {
+                // Call showO() with the position
+                let cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                showO(cell);
+
+                return false; // Exit the every() loop
+            }
         } else if (
             winningBoxes[0] !== "" &&
             winningBoxes[0] === winningBoxes[1] &&
@@ -196,11 +248,137 @@ function ONextTurn() {
                 }
             }
             return false;
-        } else {
-            return true;
         }
+        return true;
     });
 }
+
+// function ONextTurn() {
+//     let foundEmpty = false;
+//     let row, col;
+
+//     winnerCombos.every(function (winnerCombo) {
+//         let winningBoxes = [];
+
+//         winnerCombo.forEach(function (row, row_index) {
+//             row.forEach(function (winningBox, col_index) {
+//                 if (winningBox) {
+//                     let cell = document.querySelector(
+//                         `[data-row="${row_index}"][data-col="${col_index}"]`
+//                     );
+//                     winningBoxes.push(cell.innerHTML);
+//                     console.log("winningBoxes", winningBoxes);
+//                 }
+//             });
+//         });
+
+//         if (
+//             (winningBoxes[0] &&
+//                 winningBoxes[1] === "O" &&
+//                 winningBoxes[2] === null) ||
+//             (winningBoxes[1] === "O" &&
+//                 winningBoxes[2] === "0" &&
+//                 winningBoxes[0] === null) ||
+//             (winningBoxes[0] &&
+//                 winningBoxes[2] === "O" &&
+//                 winningBoxes[1] === null)
+//         ) {
+//             // Append "O" to the null value
+//             winnerCombo.forEach(function (row, row_index) {
+//                 row.forEach(function (winningBox, col_index) {
+//                     if (winningBox === null) {
+//                         row = row_index;
+//                         col = col_index;
+//                         foundEmpty = true;
+//                     }
+//                 });
+//             });
+
+//             if (foundEmpty) {
+//                 // Call showO() with the position
+//                 let cell = document.querySelector(
+//                     `[data-row="${row}"][data-col="${col}"]`
+//                 );
+//                 showO(cell);
+
+//                 return false; // Exit the every() loop
+//             }
+//         } else if (
+//             winningBoxes[0] !== "" &&
+//             winningBoxes[0] === winningBoxes[1] &&
+//             winningBoxes[1] === winningBoxes[2]
+//         ) {
+//             winnerDecided = true;
+//             winningSymbol =
+//                 winningBoxes[0].search("x-solid.svg") > 0 ? "X" : "O";
+//             // console.log(winningSymbol + " wins");
+
+//             if (winnerDecided) {
+//                 if (winningSymbol === "X") {
+//                     xWinAlert.style.display = "block";
+//                 } else if (winningSymbol === "O") {
+//                     oWinAlert.style.display = "block";
+//                 }
+//             }
+//             return false;
+//         }
+//         return true;
+//     });
+// }
+
+// function ONextTurn() {
+//     winnerCombos.every(function (winnerCombo) {
+//         let winningBoxes = [];
+
+//         winnerCombo.forEach(function (row, row_index) {
+//             row.forEach(function (winningBox, col_index) {
+//                 if (winningBox) {
+//                     let cell = document.querySelector(
+//                         `[data-row="${row_index}"][data-col="${col_index}"]`
+//                     );
+//                     winningBoxes.push(cell.innerHTML);
+//                     console.log("winningBoxes", winningBoxes);
+//                 }
+//             });
+//         });
+//         if (
+//             (winningBoxes[0] &&
+//                 winningBoxes[1] === "O" &&
+//                 winningBoxes[2] === null) ||
+//             (winningBoxes[1] === "O" &&
+//                 winningBoxes[2] === "0" &&
+//                 winningBoxes[0] === null) ||
+//             (winningBoxes[0] &&
+//                 winningBoxes[2] === "O" &&
+//                 winningBoxes[1] === null)
+//         ) {
+//             // do the search
+
+//             winningBoxes[0].search("o-solid.svg") > 0;
+//             return [row, col];
+//         } else if (
+//             winningBoxes[0] !== "" &&
+//             winningBoxes[0] === winningBoxes[1] &&
+//             winningBoxes[1] === winningBoxes[2]
+//         ) {
+//             winnerDecided = true;
+//             winningSymbol =
+//                 winningBoxes[0].search("x-solid.svg") > 0 ? "X" : "O";
+//             // console.log(winningSymbol + " wins");
+
+//             if (winnerDecided) {
+//                 if (winningSymbol === "X") {
+//                     xWinAlert.style.display = "block";
+//                 } else if (winningSymbol === "O") {
+//                     oWinAlert.style.display = "block";
+//                 }
+//             }
+//             return false;
+//         } else {
+//             return true;
+//         }
+//     });
+// }
 
 function playNewGame() {
     const grid = document.querySelector(".grid-container");
