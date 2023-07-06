@@ -101,12 +101,12 @@ function showX(event) {
     cell.appendChild(imgX);
 
     board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "X";
-    console.log(board);
+    // console.log(board);
 
-    checkWinner();
+    ONextTurn();
 }
 
-function showO(cell) {
+function showO(cell, winnerCombos) {
     const imgO = document.createElement("img");
     imgO.src = "fontawesome-free-6.3.0-web/svgs/solid/o-solid.svg";
     imgO.classList.add("o-image");
@@ -114,9 +114,26 @@ function showO(cell) {
     cell.appendChild(imgO);
 
     board[cell.getAttribute("data-row")][cell.getAttribute("data-col")] = "O";
-    console.log(board);
+    // console.log(board);
 
-    checkWinner();
+    const winningCombo = winnerCombos[winningComboIndex];
+    for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+            if (winningCombo[row][col] === true && board[row][col] === null) {
+                board[row][col] = "O";
+                const cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                const imgO = document.createElement("img");
+                imgO.src = "fontawesome-free-6.3.0-web/svgs/solid/o-solid.svg";
+                imgO.classList.add("o-image");
+                imgO.classList.add("appendedImg");
+                cell.appendChild(imgO);
+                return; // Exit the function after fulfilling the winning combination
+            }
+        }
+    }
+    ONextTurn();
 }
 
 gridItems.forEach((item) => {
@@ -125,7 +142,7 @@ gridItems.forEach((item) => {
             return;
         }
         showX(event);
-        console.log("Cell clicked");
+        // console.log("Cell clicked");
 
         const randomIndex = getRandomEmptyCell();
 
@@ -149,7 +166,11 @@ gridItems.forEach((item) => {
 let winnerDecided = false;
 let winningSymbol = "";
 
-function checkWinner() {
+function ONextTurn() {
+    let foundEmpty = false;
+    let row, col;
+    let blockingMove = false;
+
     winnerCombos.every(function (winnerCombo) {
         let winningBoxes = [];
 
@@ -160,31 +181,107 @@ function checkWinner() {
                         `[data-row="${row_index}"][data-col="${col_index}"]`
                     );
                     winningBoxes.push(cell.innerHTML);
+                    console.log("winningBoxes", winningBoxes);
                 }
             });
         });
 
         if (
-            winningBoxes[0] !== "" &&
-            winningBoxes[0] === winningBoxes[1] &&
-            winningBoxes[1] === winningBoxes[2]
+            (winningBoxes[0] &&
+                winningBoxes[1] === "X" &&
+                winningBoxes[2] === null) ||
+            (winningBoxes[1] === "X" &&
+                winningBoxes[2] === "X" &&
+                winningBoxes[0] === null) ||
+            (winningBoxes[0] &&
+                winningBoxes[2] === "X" &&
+                winningBoxes[1] === null)
         ) {
-            winnerDecided = true;
-            winningSymbol =
-                winningBoxes[0].search("x-solid.svg") > 0 ? "X" : "O";
-            console.log(winningSymbol + " wins");
+            // Stop "X" from winning by appending "O" to the null value
+            winnerCombo.forEach(function (row, row_index) {
+                row.forEach(function (winningBox, col_index) {
+                    if (winningBox === null) {
+                        row = row_index;
+                        col = col_index;
+                        foundEmpty = true;
+                    }
+                });
+            });
 
-            if (winnerDecided) {
-                if (winningSymbol === "X") {
-                    xWinAlert.style.display = "block";
-                } else if (winningSymbol === "O") {
-                    oWinAlert.style.display = "block";
-                }
+            if (foundEmpty) {
+                // Call showO() with the position
+                let cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                showO(cell);
+
+                return false; // Exit the every() loop
             }
-            return false;
-        } else {
-            return true;
+        } else if (
+            (winningBoxes[0] &&
+                winningBoxes[1] === "O" &&
+                winningBoxes[2] === null) ||
+            (winningBoxes[1] === "O" &&
+                winningBoxes[2] === "O" &&
+                winningBoxes[0] === null) ||
+            (winningBoxes[0] &&
+                winningBoxes[2] === "O" &&
+                winningBoxes[1] === null)
+        ) {
+            // Append "O" to the null value for potential winning move
+            winnerCombo.forEach(function (row, row_index) {
+                row.forEach(function (winningBox, col_index) {
+                    if (winningBox === null) {
+                        row = row_index;
+                        col = col_index;
+                        foundEmpty = true;
+                    }
+                });
+            });
+
+            if (foundEmpty) {
+                // Call showO() with the position
+                let cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                showO(cell);
+
+                return false; // Exit the every() loop
+            }
+        } else if (!blockingMove) {
+            // No immediate winning or blocking move found, go for a winning combo
+            winnerCombo.forEach(function (row, row_index) {
+                let emptyCount = 0;
+                let xCount = 0;
+
+                row.forEach(function (winningBox, col_index) {
+                    if (winningBox === null) {
+                        emptyCount++;
+                        row = row_index;
+                        col = col_index;
+                    } else if (winningBox === "X") {
+                        xCount++;
+                    }
+                });
+
+                if (emptyCount === 1 && xCount === 0) {
+                    // Only one empty cell and no "X" symbol, go for the winning combo
+                    foundEmpty = true;
+                }
+            });
+
+            if (foundEmpty) {
+                // Call showO() with the position
+                let cell = document.querySelector(
+                    `[data-row="${row}"][data-col="${col}"]`
+                );
+                showO(cell);
+
+                return false; // Exit the every() loop
+            }
         }
+
+        return true;
     });
 }
 

@@ -390,3 +390,5 @@ function playNewGame() {
 const playAgainBtn = document
     .getElementById("playAgain")
     .addEventListener("click", playNewGame);
+
+// If all bottom rows are full it crashes
